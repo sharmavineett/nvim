@@ -1,0 +1,51 @@
+return {
+--   {
+--     "echasnovski/mini.nvim",
+--     version = false,
+--     dependencies = {
+--       "nickkadutskyi/jb.nvim", -- JetBrains colorscheme & icons provider
+--     },
+--     config = function()
+--       -- 1. Setup JetBrains Icons
+--       local icons = require("mini.icons")
+--       icons.setup({
+--         -- Overwrite default icons with JetBrains-style mappings
+--         lsp = {
+--           function_ = { glyph = '  ', hl = 'JBIconFunction' },
+--           method   = { glyph = '  ', hl = 'JBIconMethod' },
+--           variable = { glyph = '  ', hl = 'JBIconVariable' },
+--           class    = { glyph = '  ', hl = 'JBIconClass' },
+--           interface= { glyph = '  ', hl = 'JBIconInterface' },
+--         }
+--       })
+--       icons.tweak_lsp_kind() -- Inject these icons into completion
+-- 
+--       -- 2. Setup JetBrains Colorscheme
+--       require("jb").setup({
+--         -- JetBrains 2025 style settings
+--         transparent = true,
+--       })
+--       vim.cmd("colorscheme jb")
+-- 
+--       -- 3. Modern Completion (JetBrains Style)
+--       require("mini.completion").setup({
+--         delay = { completion = 50, info = 100, signature = 50 },
+--         window = {
+--           info = { border = 'rounded' },      -- Sidebar Docs
+--           signature = { border = 'rounded' }, -- Param Info
+--         },
+--       })
+-- 
+--       -- 4. JetBrains Keybindings (Enter to confirm, Tab to move)
+--       local keymap = vim.keymap.set
+--       keymap('i', '<CR>', [[pumvisible() ? "\<C-y>" : "\<CR>"]], { expr = true })
+--       keymap('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true })
+--       keymap('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { expr = true })
+-- 
+--       -- 5. Final UI Polish: JetBrains Blue Highlights
+--       vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#214283", fg = "white", bold = true }) -- JB Blue selection
+--       vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#3c3f41" }) -- Dark gray JB border
+--     end,
+--   },
+}
+

@@ -1,0 +1,198 @@
+--  return {
+--    "saghen/blink.cmp",
+--    -- Load on insert mode for better performance
+--    event = "InsertEnter",
+--    version = "*", -- Use the latest stable version
+--    opts = {
+--      -- 1. Keybindings (Modern & Intuitive)
+--      keymap = {
+--        preset = "default",
+--        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+--        ["<CR>"] = { "accept", "fallback" },
+--        ["<Tab>"] = { "select_next", "fallback" },
+--        ["<S-Tab>"] = { "select_prev", "fallback" },
+--      },
+--
+--      -- 2. Visuals (Modern appearance)
+--      appearance = {
+--        use_nvim_cmp_as_default = false,
+--        nerd_font_variant = "mono", -- Aligns icons perfectly
+--      },
+--
+--      -- 3. Sources (Dynamic: works with all LSPs)
+--      sources = {
+--        default = { "lsp", "path", "snippets", "buffer" },
+--      },
+--    },
+--    config = function(_, opts)
+--      -- 4. Dynamic Capability Injection (CRITICAL)
+--      -- This tells ALL LSPs that blink.cmp is ready to handle completions
+--      local capabilities = require("blink.cmp").get_lsp_capabilities()
+--
+--      -- In Nvim 0.11+, we apply these capabilities globally
+--      vim.lsp.config("*", { capabilities = capabilities })
+--
+--      require("blink.cmp").setup(opts)
+--    end,
+--  }
+
+-- return {
+--   {
+--     "saghen/blink.cmp",
+--     version = "*",
+--     dependencies = "rafamadriz/friendly-snippets",
+--     event = "InsertEnter",
+--
+--     opts = {
+--       -- 1. VS Code-like Keymaps
+--       keymap = {
+--         preset = "default",
+--         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+--         ["<CR>"] = { "accept", "fallback" },
+--         ["<Tab>"] = { "select_next", "fallback" },
+--         ["<S-Tab>"] = { "select_prev", "fallback" },
+--       },
+--
+--       -- 2. Modern Appearance (Nerd Font Icons)
+--       appearance = {
+--         use_nvim_cmp_as_default = true,
+--         nerd_font_variant = "mono",
+--       },
+--
+--       -- 3. VS Code UI Layout
+--       completion = {
+--         accept = { auto_brackets = { enabled = true } }, -- Auto-add () to functions
+--         menu = {
+--           border = "rounded",
+--           draw = {
+--             columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+--           },
+--         },
+--         documentation = {
+--           auto_show = true,      -- Show documentation as you move
+--           auto_show_delay_ms = 200,
+--           window = { border = "rounded" },
+--         },
+--         ghost_text = { enabled = true }, -- Shows "grayed out" predicted text
+--       },
+--
+--       -- 4. Function Signature Help (Shows params as you type)
+--       signature = {
+--         enabled = true,
+--         window = { border = "rounded" },
+--       },
+--
+--       -- 5. Sources (Dynamic for all LSPs)
+--       sources = {
+--         default = { "lsp", "path", "snippets", "buffer" },
+--       },
+--     },
+--
+--     -- 6. Dynamic Handshake (CRITICAL)
+--     config = function(_, opts)
+--       -- Tells all LSPs (via Mason/lspconfig) that blink is ready for icons/docs
+--       local capabilities = require("blink.cmp").get_lsp_capabilities()
+--       vim.lsp.config("*", { capabilities = capabilities })
+--
+--       require("blink.cmp").setup(opts)
+--     end,
+--   },
+-- }
+
+-- return {
+-- 	"saghen/blink.cmp",
+-- 	version = "*",
+-- 	dependencies = { "rafamadriz/friendly-snippets" },
+-- 	event = "InsertEnter",
+-- 
+-- 	opts = {
+-- 		appearance = {
+-- 			use_nvim_cmp_as_default = true,
+-- 			nerd_font_variant = "mono", -- Vital for icon alignment
+-- 		},
+-- 
+-- 		completion = {
+-- 			-- VS Code Layout: [Icon] [Name] [Source]
+-- 			menu = {
+-- 				border = "rounded",
+-- 				winhighlight = "Normal:NormalFloat,CursorLine:PmenuSel,Search:None",
+-- 				draw = {
+-- 					columns = {
+-- 						{ "kind_icon", "kind", gap = 1 },
+-- 						{ "label", "label_description", gap = 1 },
+-- 					},
+-- 					components = {
+-- 						kind_icon = {
+-- 							ellipsis = false,
+-- 							text = function(ctx)
+-- 								return ctx.kind_icon .. ctx.icon_gap
+-- 							end,
+-- 							highlight = function(ctx)
+-- 								return "BlinkCmpKind" .. ctx.kind
+-- 							end,
+-- 						},
+-- 					},
+-- 				},
+-- 			},
+-- 
+-- 			-- VS Code Floating Documentation
+-- 			documentation = {
+-- 				auto_show = true,
+-- 				window = {
+-- 					border = "rounded",
+-- 					--winblend = 5,
+-- 					winhighlight = "Normal:NormalFloat,CursorLine:PmenuSel,Search:None",
+-- 				},
+-- 			},
+-- 			ghost_text = { enabled = true },
+-- 		},
+-- 
+-- 		-- Param docs as you type
+-- 		signature = {
+-- 			enabled = true,
+-- 			window = { border = "rounded" },
+-- 		},
+-- 
+-- 		keymap = {
+-- 			preset = "default",
+-- 			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+-- 			["<CR>"] = { "accept", "fallback" },
+-- 			["<Tab>"] = { "select_next", "fallback" },
+-- 			["<S-Tab>"] = { "select_prev", "fallback" },
+-- 			-- Scroll the documentation window up and down
+-- 			["<C-S-n>"] = { "scroll_documentation_down", "fallback" },
+-- 			["<C-S-p>"] = { "scroll_documentation_up", "fallback" },
+-- 		},
+-- 
+-- 		sources = {
+-- 			default = { "lsp", "path", "snippets", "buffer" },
+-- 		},
+-- 	},
+-- 
+-- 	config = function(_, opts)
+-- 		-- 1. Handshake with LSP for modern metadata
+-- 		local capabilities = require("blink.cmp").get_lsp_capabilities()
+-- 		vim.lsp.config("*", { capabilities = capabilities })
+-- 
+-- 		-- 2. DYNAMIC THEME OVERRIDES (Professional Look)
+-- 		-- Matches the menu background to your theme's floating windows
+-- 		local highlights = {
+-- 			BlinkCmpMenu = { link = "NormalFloat" },
+-- 			BlinkCmpMenuBorder = { link = "FloatBorder" },
+-- 			BlinkCmpDoc = { link = "NormalFloat" },
+-- 			BlinkCmpDocBorder = { link = "FloatBorder" },
+-- 			BlinkCmpSignatureHelp = { link = "NormalFloat" },
+-- 			BlinkCmpSignatureHelpBorder = { link = "FloatBorder" },
+-- 			-- Makes the selection look "active" and modern
+-- 			BlinkCmpMenuSelection = { bg = "#3e4452", fg = "NONE", bold = true },
+-- 		}
+-- 		for group, settings in pairs(highlights) do
+-- 			--vim.api.nvim_set_hl(0, group, settings)
+-- 			vim.api.nvim_set_hl(0, group, { bg = "NONE", ctermbg = "NONE" })
+-- 		end
+-- 
+-- 		require("blink.cmp").setup(opts)
+-- 	end,
+-- }
+--
+return {}

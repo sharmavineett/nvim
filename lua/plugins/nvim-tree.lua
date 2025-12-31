@@ -7,7 +7,7 @@
 
 return {
 	"sharmavineett/nvim-tree.lua",
-	lazy = false,
+  cmd = {"NvimTreeToggle", "NvimTreeFocus"},
 	config = function()
 		vim.cmd([[hi NvimTreeNormal guibg=NONE ctermbg=NONE]])
 		vim.cmd([[hi NvimTreeGitStaged guifg=#98c379]])

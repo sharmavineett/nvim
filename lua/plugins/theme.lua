@@ -10,9 +10,6 @@ return {
 		"sharmavineett/catppuccin-nvim",
 		name = "catppuccin",
 		priority = 1000,
-		config = function()
-			vim.cmd.colorscheme("catppuccin")
-		end,
 	},
 	{
 		"sharmavineett/melange-nvim",
@@ -33,6 +30,7 @@ return {
 		priority = 999,
 		config = function()
 			-- load duskfox palette
+      pcall(function() 
 			local palette = require("nightfox.palette").load("duskfox")
 
 			require("nightfox").setup({
@@ -45,8 +43,7 @@ return {
 					},
 				},
 			})
-
-			vim.cmd("colorscheme duskfox")
+      end)
 		end,
 	},
 }

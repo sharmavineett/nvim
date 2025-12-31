@@ -30,7 +30,7 @@ require("config.globals")
 require("config.options")
 require("config.keymaps")
 require("config.autocmds")
-require("utils.diagnositics").setup()
+require("utils.diagnostics").setup()
 
 local plugins_dir = "plugins"
 

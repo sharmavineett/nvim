@@ -6,7 +6,9 @@ return {
 		dependencies = {
 			"sharmavineett/plenary.nvim",
 			-- Highly recommended extension for performance
-			{ "sharmavineett/telescope-fzf-native.nvim", build = "make" },
+			{ "sharmavineett/telescope-fzf-native.nvim",
+        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release --target install'
+      },
 		},
 		-- Lazy-load telescope when you press these keys
 		keys = {

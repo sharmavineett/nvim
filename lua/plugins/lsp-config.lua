@@ -20,6 +20,16 @@ return {
 			"sharmavineett/omnisharp-extended-lsp.nvim", -- PRO TIP: Essential for "Go to Definition" in C# libraries
 		},
 		config = function()
+      -- 0. Global capabilities handshake(nvim-cmp integration)
+
+      local capabilities
+      local ok, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+
+      if ok then
+        capabilities  = cmp_lsp.default_capabilities()
+        vim.lsp.config("*", {capabilities = capabilities})
+      end
+
 			-- 1. DEFINE KEYBINDINGS GLOBALLY
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -36,18 +46,18 @@ return {
 
 			-- 2. DYNAMIC SERVER SETUP
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "omnisharp", "rust_analyzer", "fsautocomplete" },
+				ensure_installed = { "lua_ls", "omnisharp", "rust_analyzer", "fsautocomplete","gopls" },
 				handlers = {
 					-- Default handler for all other languages
 					function(server_name)
 						vim.lsp.enable(server_name)
-						print("server Name: " .. server_name)
 					end,
 
 					-- FIXED: Professional OmniSharp Setup
 					["omnisharp"] = function()
 						vim.lsp.config("omnisharp", {
 							-- This handles the "INVALID_SERVER_MESSAGE: nil" error you had
+              capabilities = capabilities,
 							handlers = require("omnisharp_extended").handlers,
 							settings = {
 								RoslynExtensionsOptions = {
@@ -66,6 +76,7 @@ return {
 
 					["lua_ls"] = function()
 						vim.lsp.config("lua_ls", {
+              capabilities = capabilities,
 							settings = { Lua = { diagnostics = { globals = { "vim" } } } },
 						})
 						vim.lsp.enable("lua_ls")

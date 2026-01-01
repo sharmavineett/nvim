@@ -70,10 +70,9 @@ local function load_last_theme()
     if f then
         local theme = f:read("*all"):gsub("%s+", "")
         f:close()
-        print("" .. theme)
         pcall(vim.cmd, "colorscheme " .. theme)
     else
-        -- vim.cmd("colorscheme rose-pine") -- Your default fallback
+        vim.cmd("colorscheme rose-pine") -- Your default fallback
     end
 end
 --

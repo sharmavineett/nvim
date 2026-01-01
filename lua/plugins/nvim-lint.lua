@@ -10,7 +10,7 @@ return {
       python = { "ruff" },
       go = { "golangcilint" },
       bash = { "shellcheck" },
-      markdown = { "vale" },
+      -- markdown = { "vale" },
     }
 
     local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

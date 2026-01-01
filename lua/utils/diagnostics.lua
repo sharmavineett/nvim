@@ -1,9 +1,16 @@
--- ~/.config/nvim/lua/config/diagnostics.lua
+-- Utility: Diagnostics UI configuration
+-- Purpose:
+--   - Centralised diagnostic visual configuration so it can be loaded early and applied
+--     to all plugins and LSPs that report diagnostics.
+-- Rationale:
+--   - Consistent icons and behaviour (virtual text, floats, update policy) improves developer experience.
+--   - Disabling updates-in-insert reduces distractions while typing.
 
 local M = {}
 
 function M.setup()
-	-- 1. Define Modern Icons (Nerd Font v3.0+)
+	-- 1. Define Modern Icons (requires a Nerd Font for best appearance).
+	--    These icons will show in the sign column (gutter) to quickly indicate issues.
 	local signs = {
 		Error = " ",
 		Warn = " ",
@@ -11,28 +18,34 @@ function M.setup()
 		Info = "",
 	}
 
-	-- 2. Apply Icons to Neovim UI
+	-- 2. Register the sign icons with Neovim.
+	--    `vim.fn.sign_define` links a highlight name to the chosen icon.
 	for type, icon in pairs(signs) do
 		local hl = "DiagnosticSign" .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 	end
 
-	-- 3. Configure Diagnostic Behavior (Native Nvim 0.11+ Style)
+	-- 3. Configure diagnostic behavior globally with vim.diagnostic.config.
+	--    These options are tuned to be modern and minimally noisy:
+	--    - virtual_text: compact in-line messages; here limited to current line for reduced clutter
+	--    - signs: keep icons in the gutter
+	--    - underline: underline problematic text for emphasis
+	--    - update_in_insert: false reduces distractions while editing
 	vim.diagnostic.config({
 		virtual_text = {
-			current_line = true, -- Only show text on the line your cursor is on
-			spacing = 4, -- Gap between code and diagnostic
-			prefix = "●", -- Subtle bullet before the text
+			current_line = true, -- Show inline only for the active line to limit noise
+			spacing = 4,         -- Visual gap between code and the virtual text
+			prefix = "●",        -- Subtle bullet to prefix messages
 		},
-		signs = true, -- Keep the icons in the gutter
-		underline = true, -- Underline the actual error in the code
-		update_in_insert = false, -- Don't show text while typing (less distracting)
-		severity_sort = true, -- Show errors before warnings
+		signs = true,
+		underline = true,
+		update_in_insert = false,
+		severity_sort = true, -- Show high-severity items earlier
 		float = {
 			focused = false,
 			style = "minimal",
-			border = "rounded", -- VS Code-like rounded borders
-			source = "always", -- Shows which LSP (lua_ls, omnisharp) sent the error
+			border = "rounded", -- Make floating diagnostics visually pleasant (VS Code-like)
+			source = "always",  -- Show which server produced the diagnostic
 			header = "",
 			prefix = "",
 		},

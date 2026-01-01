@@ -42,7 +42,7 @@ vim.keymap.set("n", "<leader>m", "<Cmd>NvimTreeFocus<CR>", { desc = "Focus on Fi
 vim.keymap.set("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle File Explorer" })
 
 -- Toggle word wrap!
-vim.keymap.set("n", "<leader>uw", "<cmd>set wrap!<cr>", { desc = "Toggle line wrap" })
+vim.keymap.set("n", "<leader>ww", "<cmd>set wrap!<cr>", { desc = "Toggle line wrap" })
 
 
 vim.keymap.set("n", "<C-k><C-l>", function()

@@ -50,3 +50,38 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- 	callback = on_attach,
 -- })
 --
+
+local theme_cache = vim.fn.stdpath("data") .. "/last_theme"
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = function()
+        local theme = vim.g.colors_name
+        local f = io.open(theme_cache, "w")
+        if f then
+            f:write(theme)
+            f:close()
+        end
+    end,
+})
+
+
+local function load_last_theme()
+    local f = io.open(theme_cache, "r")
+    if f then
+        local theme = f:read("*all"):gsub("%s+", "")
+        f:close()
+        print("" .. theme)
+        pcall(vim.cmd, "colorscheme " .. theme)
+    else
+        -- vim.cmd("colorscheme rose-pine") -- Your default fallback
+    end
+end
+--
+-- Wait until everything is loaded before applying the saved theme
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        load_last_theme()
+    end,
+})
+
+

@@ -57,6 +57,11 @@ vim.keymap.set("x", "<C-k><C-b>", function()
   { desc = "Toggle comment block" }
 )
 
+-- Toggle theme background transparency
+vim.keymap.set("n", "<leader>tt", ":TransparentToggle<CR>", {
+  desc = "Toggle background transparency",
+  silent = true
+})
 
 -- comment in insert mode (using Ctrl+k Ctrl+k)
 vim.keymap.set("i", "<C-k><C-l>", function()
